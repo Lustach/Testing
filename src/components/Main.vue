@@ -148,18 +148,18 @@ export default {
   padding: 1%;
 }
 .toAdd {
-  margin-left: 65%;
-  margin-top: -6.5%;
+  margin-left: 66%;
+  margin-top: -4.5%;
 }
 .grpBtn {
-  margin: 2% 5% 0%;
+  margin: 1% 5% 0%;
 }
 .ErBtn {
   margin-left: 1%;
 }
 .done {
-  margin-top: -10%;
-  margin-left: 90%;
+  margin-top: -7%;
+  margin-left: 83%;
 }
 .lineThrough {
   text-decoration: line-through;
