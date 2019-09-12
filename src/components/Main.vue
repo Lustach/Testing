@@ -18,6 +18,7 @@
         </div>
         <div class="grpBtn">
           <v-btn
+            class="ma-2"
             color="primary"
             @click="ClearAll"
           >Clear all</v-btn>
@@ -33,14 +34,14 @@
         <input
           v-if="items.completed"
           class="Input"
-          :disabled="disabledf"
+          :disabled="edit[i]"
           v-model="items.taskname"
           :style="lineThrough"
         />
         <input
           v-if="items.completed==false"
           class="Input"
-          :disabled="disabledf"
+          :disabled="edit[i]"
           v-model="items.taskname"
           :style="lineNone"
         />
@@ -51,10 +52,18 @@
           @click="DeleteInp(i)"
         >Delete</v-btn>
         <v-btn
+          v-if="edit[i]"
           class="primary"
           @click="EditBtn(i)"
         >
           Edit
+        </v-btn>
+        <v-btn
+          v-else
+          class="primary"
+          @click="Save(items.taskname)"
+        >
+          Save
         </v-btn>
 
         <v-btn
@@ -81,6 +90,8 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
+      editindex: 0,
+      edit: [true, true, true],
       lineNone: "text-decoration:none",
       lineThrough: "text-decoration:line-through;background-color:grey",
       colorg: "",
@@ -100,16 +111,27 @@ export default {
       "DeleteInp",
       "ClearAll",
       "EditBtn",
-      "completeTodo"
+      "completeTodo",
+      "Save"
     ]),
+    Save(text) {
+      this.edit[this.editindex] = true;
+      this.$store.commit("Save", {
+        id: this.editindex,
+        taskname:text
+      });
+      this.editindex = 0;
+    },
     SetStyle(arg) {},
     ...mapActions(["pushNewTask"]),
     EditBtn(arg) {
-      this.disabledf = !this.disabledf;
+      this.edit[arg] = false;
+      this.editindex = arg;
     },
     pushNewTask(arg) {
       console.log(arg);
       this.$store.commit("pushNewTask", arg);
+      this.edit.push(true);
     },
     completeTodo(arg) {
       console.log("In complete arg", arg);

@@ -30,11 +30,15 @@ export const store = new Vuex.Store({
             state.todo[payload].completed = !state.todo[payload].completed
             console.log(state.todo[payload].completed)
         },
+        Save(state,payload){
+            state[payload.index].taskname=payload.text
+            state[payload.index].completed=false
+        },
         pushNewTask(state, payload) {
             console.log(payload)
             state.todo.push({
                 taskname: payload,
-                completed: false
+                completed: false,
             })
             console.log(payload)
         },
